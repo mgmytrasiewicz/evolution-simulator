@@ -1,29 +1,51 @@
 
 """EvoWorld application entry point."""
 
+import pygame
+
 from simulation.settings import DEFAULT_SETTINGS
+from visualization.renderer import Renderer
 
 
 def main() -> None:
     """Start the EvoWorld application."""
 
-    print("================================")
-    print("          EvoWorld")
-    print("  Artificial Evolution Simulator")
-    print("================================")
+    pygame.init()
 
-    print(f"World size: {DEFAULT_SETTINGS.world_width} x "
-          f"{DEFAULT_SETTINGS.world_height}")
+    try:
 
-    print(f"Initial population: "
-          f"{DEFAULT_SETTINGS.initial_population}")
+        renderer = Renderer(DEFAULT_SETTINGS)
+        clock = pygame.time.Clock()
 
-    print(f"Initial food: {DEFAULT_SETTINGS.initial_food_count}")
+        running = True
 
-    print(f"Random seed: {DEFAULT_SETTINGS.random_seed}")
+        #Main application loop
+        while running:
 
-    print("\nProject initialized successfully!")
+            #Handle application events
+            for event in pygame.event.get():
 
+                #Handle window close button
+                if event.type == pygame.QUIT:
+                    running = False
+
+                #Handle keyboard input
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+
+            if not running:
+                break
+
+            #Render the current frame
+            renderer.render()
+
+            #Limint the frame rate to the target FPS
+            clock.tick(DEFAULT_SETTINGS.target_fps)
+
+    finally:
+        #Quit Pygame and clean up resources
+        pygame.quit()
 
 if __name__ == "__main__":
     main()

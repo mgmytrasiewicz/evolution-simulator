@@ -11,6 +11,8 @@ class Settings:
     # Display settings
     window_width: int = 1200
     window_height: int = 800
+    window_title: str = "EvoWorld — Artificial Evolution Simulation"
+    background_color: tuple[int, int, int] = (15, 24, 32)  # Dark blue-grey background color
     target_fps: int = 60
 
     # World settings
