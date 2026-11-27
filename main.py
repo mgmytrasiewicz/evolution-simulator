@@ -6,6 +6,7 @@ import random
 import pygame
 
 from environment.environment import Environment
+from organisms.population import Population
 from simulation.world import World
 from simulation.settings import DEFAULT_SETTINGS
 from visualization.renderer import Renderer
@@ -27,6 +28,7 @@ def main() -> None:
         )
 
         environment = Environment(world, DEFAULT_SETTINGS)
+        population = Population(world, DEFAULT_SETTINGS)
 
         renderer = Renderer(DEFAULT_SETTINGS)
         clock = pygame.time.Clock()
@@ -52,7 +54,10 @@ def main() -> None:
                 break
 
             #Render the current frame
-            renderer.render(environment.food)
+            renderer.render(
+                environment.food,
+                population.organisms
+            )
 
             #Limint the frame rate to the target FPS
             clock.tick(DEFAULT_SETTINGS.target_fps)

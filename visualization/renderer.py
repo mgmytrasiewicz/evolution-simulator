@@ -4,6 +4,7 @@
 import pygame
 
 from environment.food import Food
+from organisms.organism import Organism
 from simulation.settings import Settings
 
 
@@ -24,7 +25,11 @@ class Renderer:
 
         pygame.display.set_caption(settings.window_title)
 
-    def render(self, food: list[Food]) -> None:
+    def render(
+            self, 
+            food: list[Food],
+            organisms: list[Organism]
+        ) -> None:
         """Draw and display one frame."""
 
         self.screen.fill(self.settings.background_color)
@@ -37,6 +42,16 @@ class Renderer:
                 self.settings.food_color,
                 (int(x), int(y)),
                 self.settings.food_radius,
+            )
+
+        for organism in organisms:
+            x, y = organism.position
+
+            pygame.draw.circle(
+                self.screen,
+                self.settings.organism_color,
+                (int(x), int(y)),
+                self.settings.organism_radius,
             )
 
         pygame.display.flip()

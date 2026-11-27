@@ -31,4 +31,4 @@ compete for resources, reproduce, and evolve.
 
 Phase 1 - Foundation
 
-Current task: Initial organisms.
+Current task: Basic Simulation Integration.

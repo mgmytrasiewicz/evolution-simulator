@@ -23,6 +23,10 @@ class Settings:
     initial_population: int = 100
     initial_food_count: int = 200
 
+    # Organism settings
+    organism_radius: int = 6
+    organism_color: tuple[int, int, int] = (96, 165, 250)
+
     # Food settings
     food_energy: float = 25.0
     food_radius: int = 3
