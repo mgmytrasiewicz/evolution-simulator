@@ -23,6 +23,11 @@ class Settings:
     initial_population: int = 100
     initial_food_count: int = 200
 
+    # Food settings
+    food_energy: float = 25.0
+    food_radius: int = 3
+    food_color: tuple[int, int, int] = (80, 200, 120)
+
     # Reproducibility
     random_seed: int = 42
 

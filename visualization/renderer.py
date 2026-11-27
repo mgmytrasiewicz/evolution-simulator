@@ -3,6 +3,7 @@
 
 import pygame
 
+from environment.food import Food
 from simulation.settings import Settings
 
 
@@ -23,9 +24,19 @@ class Renderer:
 
         pygame.display.set_caption(settings.window_title)
 
-    def render(self) -> None:
+    def render(self, food: list[Food]) -> None:
         """Draw and display one frame."""
 
         self.screen.fill(self.settings.background_color)
+
+        for item in food:
+            x, y = item.position
+
+            pygame.draw.circle(
+                self.screen,
+                self.settings.food_color,
+                (int(x), int(y)),
+                self.settings.food_radius,
+            )
 
         pygame.display.flip()

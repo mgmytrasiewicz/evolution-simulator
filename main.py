@@ -1,8 +1,12 @@
 
 """EvoWorld application entry point."""
 
+import random
+
 import pygame
 
+from environment.environment import Environment
+from simulation.world import World
 from simulation.settings import DEFAULT_SETTINGS
 from visualization.renderer import Renderer
 
@@ -13,6 +17,16 @@ def main() -> None:
     pygame.init()
 
     try:
+
+        rng = random.Random(DEFAULT_SETTINGS.random_seed)
+
+        world = World(
+            DEFAULT_SETTINGS.world_width,
+            DEFAULT_SETTINGS.world_height,
+            rng,
+        )
+
+        environment = Environment(world, DEFAULT_SETTINGS)
 
         renderer = Renderer(DEFAULT_SETTINGS)
         clock = pygame.time.Clock()
@@ -38,7 +52,7 @@ def main() -> None:
                 break
 
             #Render the current frame
-            renderer.render()
+            renderer.render(environment.food)
 
             #Limint the frame rate to the target FPS
             clock.tick(DEFAULT_SETTINGS.target_fps)
