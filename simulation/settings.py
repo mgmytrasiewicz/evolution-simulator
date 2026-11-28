@@ -15,6 +15,9 @@ class Settings:
     background_color: tuple[int, int, int] = (15, 24, 32)  # Dark blue-grey background color
     target_fps: int = 60
 
+    # Simulation timing
+    updates_per_second: int = 30
+
     # World settings
     world_width: int = 1200
     world_height: int = 800

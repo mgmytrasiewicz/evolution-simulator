@@ -5,9 +5,7 @@ import random
 
 import pygame
 
-from environment.environment import Environment
-from organisms.population import Population
-from simulation.world import World
+from simulation.simulation import Simulation
 from simulation.settings import DEFAULT_SETTINGS
 from visualization.renderer import Renderer
 
@@ -19,24 +17,16 @@ def main() -> None:
 
     try:
 
-        rng = random.Random(DEFAULT_SETTINGS.random_seed)
-
-        world = World(
-            DEFAULT_SETTINGS.world_width,
-            DEFAULT_SETTINGS.world_height,
-            rng,
-        )
-
-        environment = Environment(world, DEFAULT_SETTINGS)
-        population = Population(world, DEFAULT_SETTINGS)
-
+        simulation = Simulation(DEFAULT_SETTINGS)
         renderer = Renderer(DEFAULT_SETTINGS)
         clock = pygame.time.Clock()
-
         running = True
 
         #Main application loop
         while running:
+
+            #Calculate elapsed time since last frame
+            elapsed_ms = clock.tick(DEFAULT_SETTINGS.target_fps)
 
             #Handle application events
             for event in pygame.event.get():
@@ -53,10 +43,13 @@ def main() -> None:
             if not running:
                 break
 
+            #Advance the simulation by the elapsed time
+            simulation.advance(elapsed_ms)
+
             #Render the current frame
             renderer.render(
-                environment.food,
-                population.organisms
+                simulation.environment.food,
+                simulation.population.organisms
             )
 
             #Limint the frame rate to the target FPS
